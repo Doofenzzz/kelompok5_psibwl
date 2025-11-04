@@ -8,6 +8,9 @@
         return view('welcome');
     })->name('welcome');
 
+    // Rute baru untuk halaman "Tentang Kami"
+    Route::get('/about-us', fn () => view('about-us'))->name('about');
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
