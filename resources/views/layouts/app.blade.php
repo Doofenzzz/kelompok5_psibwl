@@ -208,7 +208,23 @@
           <li><a href="{{ url('/') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}">Beranda</a></li>
            <!-- Link "Tentang Kami" ditambahkan di sini -->
           <li><a href="{{ route('about') }}" class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}">Tentang Kami</a></li>
-          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle {{ request()->is('kredit*') || request()->is('deposito*') || request()->is('rekening*') ? 'active' : '' }}"
+              href="#" data-bs-toggle="dropdown">
+              Produk Sarimadu
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{ route('kredit') }}">Kredit</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="{{ route('deposito') }}">Deposito</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="{{ route('rekening') }}">Rekening</a></li>
+            </ul>
+          </li>
           @auth
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
