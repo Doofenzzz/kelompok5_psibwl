@@ -26,33 +26,6 @@
     margin-bottom:1rem;
   }
   .about-section p{ color:var(--ink); text-align:justify; margin-bottom:.8rem; }
-
- 
-  .team-card {
-    background: var(--surface);
-    border:1px solid rgba(0,0,0,.05);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 1.5rem;
-    height: 100%;
-    text-align: center;
-    transition: all 0.2s ease;
-  }
-  .team-card:hover {
-    transform: translateY(-4px);
-  }
-  .team-card img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 4px solid var(--surface);
-    margin-bottom: 1rem;
-    margin-left: auto;
-    margin-right: auto;
-    object-fit: cover;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.07);
-  }
-
 </style>
 @endpush
 
@@ -69,10 +42,8 @@
 <section class="py-4">
   <div class="container">
     <div class="text-center mb-5">
-     
-      <img src="{{ asset('assets/WEB-KANTOR.jpeg.jpg') }}" alt="Kantor PT BPR Sarimadu"
-           class="img-fluid rounded-4 shadow-sm mb-4" style="max-height:380px; object-fit:cover;"
-           onerror="this.src='https://placehold.co/800x380/EBF8FF/003366?text=Gambar+Kantor';this.onerror=null;">
+      <img src="{{ asset('assets/WEB-KANTOR.jpeg') }}" alt="Bank Illustration"
+           class="img-fluid rounded-4 shadow-sm mb-4" style="max-height:380px; object-fit:cover;">
     </div>
 
     {{-- SEJARAH SINGKAT --}}
@@ -103,42 +74,8 @@
       <p>PT BPR Sarimadu Perseroda merupakan salah satu <strong>Badan Usaha Milik Daerah (BUMD)</strong> Kabupaten Kampar yang bergerak di bidang lembaga keuangan perbankan (Bank Perkreditan Rakyat). Dengan izin operasional dari Menteri Keuangan Republik Indonesia Nomor Kep.067/KM.13/92 tanggal 16 Maret 1992, PT BPR Sarimadu Perseroda berfokus pada layanan kredit mikro, simpanan masyarakat, serta produk keuangan berbasis inklusi.</p>
     </div>
 
-    
-    <!-- === BAGIAN TIM DITAMBAHKAN KEMBALI DI SINI === -->
-    <div class="text-center mt-5 mb-4">
-        <h2 class="h3 fw-bold" style="color:var(--navy);">Tim Kami</h2>
-        <p class="text-muted">Orang-orang hebat di balik layar.</p>
-    </div>
-
- 
-    <div class="row g-4 justify-content-center">
-        @php $team = [
-           
-            ['name' => 'Nama Anggota 1', 'role' => 'Jabatan (cth: Direktur)', 'image' => 'foto.jpg'],
-            ['name' => 'Nama Anggota 2', 'role' => 'Jabatan (cth: Komisaris)', 'image' => 'foto-tim-2.jpg'],
-            ['name' => 'Nama Anggota 3', 'role' => 'Jabatan (cth: Manajer IT)', 'image' => 'foto-tim-3.jpg'],
-            ['name' => 'Nama Anggota 4', 'role' => 'Jabatan (cth: Marketing)', 'image' => 'foto-tim-4.jpg'],
-            ['name' => 'Nama Anggota 5', 'role' => 'Jabatan (cth: Staf)', 'image' => 'foto-tim-5.jpg'],
-        ]; @endphp
-
-        @foreach($team as $member)
-        <div class="col-lg-4 col-md-6">
-            <div class="team-card">
-                <img src="{{ asset('assets/' . $member['image']) }}" 
-                     alt="Foto {{ $member['name'] }}"
-                     onerror="this.src='https://placehold.co/100x100/EBF8FF/003366?text=Foto';this.onerror=null;">
-                
-                <h5 class="fw-semibold mb-1">{{ $member['name'] }}</h5>
-                <p class="text-muted small mb-0">{{ $member['role'] }}</p>
-            </div>
-        </div>
-        @endforeach
-    </div>
-    <!-- === AKHIR BAGIAN TIM === -->
-
-
     {{-- CTA --}}
-    <div class="text-center mt-5 pt-4 border-top">
+    <div class="text-center mt-5">
       <a href="{{ url('/') }}" class="btn btn-bank px-4 py-2">
         <i class="bi bi-house-door"></i> Kembali ke Beranda
       </a>

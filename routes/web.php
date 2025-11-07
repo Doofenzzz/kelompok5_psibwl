@@ -7,13 +7,16 @@
     Route::get('/', function () {
         return view('welcome');
     })->name('welcome');
-
-    // Rute baru untuk halaman "Tentang Kami"
-    Route::get('/about-us', fn () => view('about-us'))->name('about');
-
+<<<<<<< HEAD
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
+=======
+    Route::get('/kredit', fn () => view('kredit.kredit'))->name('kredit');
+    Route::get('/deposito', fn () => view('deposito.deposito'))->name('deposito');
+    Route::get('/rekening', fn () => view('rekening.rekening'))->name('rekening');
+    Route::get('/about-us', fn () => view('about-us'))->name('about');
+>>>>>>> 87b7a25 (add products information)
 
     Route::middleware('auth')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
