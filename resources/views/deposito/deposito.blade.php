@@ -52,10 +52,10 @@
             <i class="bi bi-piggy-bank fs-5"></i> Buka Deposito Sekarang
           </a>
         @else
-          <a href="{{ route('dashboard') }}"
+          <a href="{{ route('nasabah.create') }}"
              class="btn btn-outline-bank btn-lg d-flex align-items-center gap-2 shadow-sm"
              style="border-radius:999px; padding:.8rem 1.8rem; transition:all .25s ease;">
-            <i class="bi bi-speedometer2 fs-5"></i> Buka Dashboard
+            <i class="bi bi-speedometer2 fs-5"></i> Isi Data Diri
           </a>
         @endcan
       @else
