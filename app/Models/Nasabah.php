@@ -28,4 +28,19 @@ class Nasabah extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function rekenings()
+    {
+        return $this->hasMany(Rekening::class);
+    }
+
+    public function kredits()
+    {
+        return $this->hasMany(Kredit::class);
+    }
+
+    public function depositos()
+    {
+        return $this->hasMany(Deposito::class);
+    }
 }

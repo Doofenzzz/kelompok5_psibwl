@@ -4,6 +4,7 @@
     use App\Http\Controllers\ProfileController;
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\Auth\RegisteredUserController;
+    use App\Http\Controllers\DashboardController;
     use App\Http\Controllers\DepositoController;
     use App\Http\Controllers\KreditController;
     use App\Http\Controllers\RekeningController;
@@ -23,6 +24,8 @@
 
 
     Route::middleware('auth')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -32,17 +35,44 @@
         Route::post('/nasabah',       [NasabahController::class, 'store'])->name('nasabah.store');
         Route::resource('nasabah', NasabahController::class)->only(['update','show','edit']);
 
+        Route::get('/pengajuan/{type}/{id}/detail', [DashboardController::class, 'showDetail'])->name('nasabah.detail');
+        Route::delete('/pengajuan/{type}/{id}/cancel', [DashboardController::class, 'cancelPengajuan'])->name('nasabah.cancel');
+
         Route::middleware('can:submit-applications')->group(function () {
         // Rekening
             Route::get('/rekening/create', [RekeningController::class, 'create'])->name('rekening.create');
             Route::post('/rekening',       [RekeningController::class, 'store'])->name('rekening.store');
+            Route::get('/rekening/{rekening}/edit', [RekeningController::class, 'edit'])->name('rekening.edit');
+            Route::patch('/rekening/{rekening}', [RekeningController::class, 'update'])->name('rekening.update');
 
+            // Kredit
             Route::get('/kredit/create', [KreditController::class, 'create'])->name('kredit.create');
-            Route::post('/kredit/store', [KreditController::class, 'store'])->name('kredit.store');
+            Route::post('/kredit', [KreditController::class, 'store'])->name('kredit.store');
+            Route::get('/kredit/{kredit}/edit', [KreditController::class, 'edit'])->name('kredit.edit');
+            Route::patch('/kredit/{kredit}', [KreditController::class, 'update'])->name('kredit.update');
 
+            // Deposito
             Route::get('/deposito/create', [DepositoController::class, 'create'])->name('deposito.create');
             Route::post('/deposito',       [DepositoController::class, 'store'])->name('deposito.store');
+            Route::get('/deposito/{deposito}/edit', [DepositoController::class, 'edit'])->name('deposito.edit');
+            Route::patch('/deposito/{deposito}', [DepositoController::class, 'update'])->name('deposito.update');
         });
+        
+        // // Receipt
+        // Route::get('/pengajuan/cetak/{tipe}/{id}', [ReceiptController::class, 'cetak'])->name('pengajuan.cetak');
+    
+        // Kredit
+        Route::get('/kredit/{kredit}/bukti', [KreditController::class, 'downloadBukti'])
+            ->name('kredit.bukti');
+        Route::get('/kredit/{kredit}/preview', [KreditController::class, 'previewBukti'])
+            ->name('kredit.preview');
+
+        // Deposito
+        Route::get('/deposito/{deposito}/bukti', [DepositoController::class, 'downloadBukti'])
+            ->name('deposito.bukti');
+        Route::get('/deposito/{deposito}/preview', [DepositoController::class, 'previewBukti'])
+            ->name('deposito.preview');
+        
     });
 
     // Guest auth (custom tambahan di luar auth.php)
