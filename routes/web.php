@@ -1,6 +1,8 @@
     <?php
 
-    use App\Http\Controllers\NasabahController;
+use App\Http\Controllers\Admin\PengajuanController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\NasabahController;
     use App\Http\Controllers\ProfileController;
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\Auth\RegisteredUserController;
@@ -72,7 +74,22 @@
             ->name('deposito.bukti');
         Route::get('/deposito/{deposito}/preview', [DepositoController::class, 'previewBukti'])
             ->name('deposito.preview');
-        
+
+        Route::middleware('admin')->group(function () {
+            Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+            Route::patch('/admin/rekening/{rekening}', [AdminController::class, 'updateRekening'])->name('admin.rekening.update');
+            Route::patch('/admin/kredit/{kredit}', [AdminController::class, 'updateKredit'])->name('admin.kredit.update');
+            Route::patch('/admin/deposito/{deposito}', [AdminController::class, 'updateDeposito'])->name('admin.deposito.update');
+        });
+    });
+    Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(function () {
+        Route::get('/pengajuan',[PengajuanController::class,'index'])->name('pengajuan.index'); // list + filter + sort + pagination
+        Route::get('/pengajuan/{type}/{id}', [PengajuanController::class,'show'])->name('pengajuan.show');   // detail (AJAX)
+        Route::post('/pengajuan/{type}/{id}/status', [PengajuanController::class,'updateStatus'])->name('pengajuan.status');
+        Route::post('/pengajuan/{type}/{id}/notes',  [PengajuanController::class,'addNote'])->name('pengajuan.notes');
+        Route::post('/pengajuan/{type}/{id}/assign', [PengajuanController::class,'assign'])->name('pengajuan.assign');
+        Route::get('/pengajuan/{type}/{id}/preview',  [PengajuanController::class,'preview'])->name('pengajuan.preview');
+        Route::get('/pengajuan/{type}/{id}/download', [PengajuanController::class,'download'])->name('pengajuan.download');
     });
 
     // Guest auth (custom tambahan di luar auth.php)

@@ -235,8 +235,11 @@
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="{{ route('dashboard') }}">Pengajuan Saya</a></li> 
-                <li>
+                @if(auth()->user()->role === 'admin')
+                  <li><a class="dropdown-item" href="{{ route('dashboard') }}">Pengajuan Nasabah</a></li>
+                @else
+                  <li><a class="dropdown-item" href="{{ route('dashboard') }}">Pengajuan Saya</a></li>
+                @endif                <li>
                   <hr class="dropdown-divider">
                 </li>
                 <li>
