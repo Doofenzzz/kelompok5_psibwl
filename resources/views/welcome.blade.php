@@ -100,7 +100,7 @@
             <div>
               <div class="fw-semibold">Buka Rekening</div>
               <div class="muted small">Tabungan reguler, pelajar, hingga bisnis.</div>
-              <a class="link-primary small">Mulai pengajuan</a>
+              <a href="{{ route('rekening.create') }}" class="link-primary small">Mulai pengajuan</a>
             </div>
           </div>
 
@@ -109,7 +109,7 @@
             <div>
               <div class="fw-semibold">Ajukan Kredit</div>
               <div class="muted small">Bunga transparan, tenor fleksibel.</div>
-              <a class="link-primary small">Ajukan sekarang</a>
+              <a href="{{ route('kredit.create') }}" class="link-primary small">Ajukan sekarang</a>
             </div>
           </div>
 
@@ -118,7 +118,7 @@
             <div>
               <div class="fw-semibold">Deposito</div>
               <div class="muted small">Imbal hasil menarik untuk danamu.</div>
-              <a class="link-primary small">Buka deposito</a>
+              <a href="{{ route('deposito.create') }}" class="link-primary small">Buka deposito</a>
             </div>
           </div>
         </div>
@@ -180,7 +180,7 @@
             <div>
               <div class="fw-semibold">Lengkapi Profil Nasabah</div>
               <p class="muted small mb-2">Isi data KYC dasar untuk verifikasi.</p>
-              <a class="btn btn-sm btn-outline-bank">Lengkapi Profil</a>
+              <a href="{{ route('nasabah.create') }}" class="btn btn-sm btn-outline-bank">Lengkapi Profil</a>
             </div>
           </div>
         </div>
@@ -193,9 +193,9 @@
               <div class="fw-semibold">Ajukan Layanan</div>
               <p class="muted small mb-2">Pilih Rekening/Kredit/Deposito sesuai kebutuhan.</p>
               <div class="d-flex gap-2 flex-wrap">
-                <a class="btn btn-sm btn-bank">Rekening</a>
-                <a class="btn btn-sm btn-outline-bank">Kredit</a>
-                <a class="btn btn-sm btn-outline-bank">Deposito</a>
+                <a href="{{ route('rekening.create') }}" class="btn btn-sm btn-bank">Rekening</a>
+                <a href="{{ route('kredit.create') }}" class="btn btn-sm btn-outline-bank">Kredit</a>
+                <a href="{{ route('deposito.create') }}" class="btn btn-sm btn-outline-bank">Deposito</a>
               </div>
             </div>
           </div>

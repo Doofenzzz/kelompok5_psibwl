@@ -48,9 +48,11 @@ class NasabahController extends Controller
         $tmpPath = null;
 
         try {
+            // 1) Upload dulu (pakai userId biar pasti ada folder)
             $tmpPath = $request->file('foto_ktp')->store("nasabah/{$userId}/ktp", 'private');
             if (!$tmpPath) abort(422, 'Gagal menyimpan file KTP.');
 
+            // 2) Create dengan path (kolom NOT NULL aman)
             $nasabah = DB::transaction(function () use ($validated, $userId, $tmpPath) {
                 return Nasabah::create([
                     'user_id'        => $userId,
@@ -60,10 +62,11 @@ class NasabahController extends Controller
                     'tempat_lahir'   => $validated['tempat_lahir'],
                     'tanggal_lahir'  => $validated['tanggal_lahir'],
                     'no_hp'          => $validated['no_hp'],
-                    'foto_ktp'       => $tmpPath, //
+                    'foto_ktp'       => $tmpPath, // ⬅️ bukan null
                 ]);
             });
 
+            // 3) (Opsional) Rapihin folder → based on nasabah ID
             $finalDir  = "nasabah/{$nasabah->id}/ktp";
             $fileName  = basename($tmpPath);
             $finalPath = "{$finalDir}/{$fileName}";

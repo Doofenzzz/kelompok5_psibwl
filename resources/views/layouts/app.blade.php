@@ -206,8 +206,8 @@
       <div class="collapse navbar-collapse" id="navMenu">
         <ul class="navbar-nav ms-auto align-items-lg-center">
           <li><a href="{{ url('/') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}">Beranda</a></li>
-           <!-- Link "Tentang Kami" ditambahkan di sini -->
-          <li><a href="{{ route('about') }}" class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}">Tentang Kami</a></li>
+          <li><a href="{{ route('about') }}" class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}">Tentang
+              Kami</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle {{ request()->is('kredit*') || request()->is('deposito*') || request()->is('rekening*') ? 'active' : '' }}"
               href="#" data-bs-toggle="dropdown">
@@ -225,21 +225,25 @@
               <li><a class="dropdown-item" href="{{ route('rekening') }}">Rekening</a></li>
             </ul>
           </li>
+
           @auth
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 <i class="bi bi-person-circle me-1"></i>{{ auth()->user()->name }}
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profil</a></li> 
+                <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profil</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
+
                 @if(auth()->user()->role === 'admin')
                   <li><a class="dropdown-item" href="{{ route('dashboard') }}">Pengajuan Nasabah</a></li>
                 @else
                   <li><a class="dropdown-item" href="{{ route('dashboard') }}">Pengajuan Saya</a></li>
-                @endif                <li>
+                @endif
+
+                <li>
                   <hr class="dropdown-divider">
                 </li>
                 <li>

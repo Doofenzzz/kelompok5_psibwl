@@ -7,39 +7,53 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
     public function edit(Request $request): View
     {
+        $user = $request->user();
+        $user->loadMissing('nasabah'); // biar bisa akses $user->nasabah di Blade
+
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user'    => $user,
+            'nasabah' => $user->nasabah,
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
+        $user->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
+        $user->save();
 
-        $request->user()->save();
+        // ✅ handle upload foto_ktp (PRIVATE)
+        $nasabah = $user->nasabah;
+        if ($nasabah && $request->hasFile('foto_ktp')) {
+            $request->validate([
+                'foto_ktp' => ['file','mimes:jpg,jpeg,png','max:2048'],
+            ]);
+
+            // hapus file lama kalau ada
+            if (!empty($nasabah->foto_ktp)) {
+                Storage::disk('private')->delete($nasabah->foto_ktp);
+            }
+
+            // simpan baru di folder private/nasabah/{id}/ktp
+            $path = $request->file('foto_ktp')->store("nasabah/{$nasabah->id}/ktp", 'private');
+            $nasabah->foto_ktp = $path;
+            $nasabah->save();
+        }
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
-    /**
-     * Delete the user's account.
-     */
     public function destroy(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [
@@ -47,9 +61,7 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
-
         Auth::logout();
-
         $user->delete();
 
         $request->session()->invalidate();

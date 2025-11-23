@@ -15,6 +15,26 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    @auth
+                        @if(auth()->user()->nasabah)
+                            <x-nav-link :href="route('rekening.create')" :active="request()->routeIs('rekening.create')">
+                                {{ __('Buka Rekening') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('kredit.create')" :active="request()->routeIs('kredit.create')">
+                                {{ __('Ajukan Kredit') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('deposito.create')" :active="request()->routeIs('deposito.create')">
+                                {{ __('Buka Deposito') }}
+                            </x-nav-link>
+                        @endif
+
+                        @if(auth()->user()->isAdmin())
+                            <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                                {{ __('Admin Panel') }}
+                            </x-nav-link>
+                        @endif
+                    @endauth
                 </div>
             </div>
 
@@ -70,6 +90,26 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            @auth
+                @if(auth()->user()->nasabah)
+                    <x-responsive-nav-link :href="route('rekening.create')" :active="request()->routeIs('rekening.create')">
+                        {{ __('Buka Rekening') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('kredit.create')" :active="request()->routeIs('kredit.create')">
+                        {{ __('Ajukan Kredit') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('deposito.create')" :active="request()->routeIs('deposito.create')">
+                        {{ __('Buka Deposito') }}
+                    </x-responsive-nav-link>
+                @endif
+
+                @if(auth()->user()->isAdmin())
+                    <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                        {{ __('Admin Panel') }}
+                    </x-responsive-nav-link>
+                @endif
+            @endauth
         </div>
 
         <!-- Responsive Settings Options -->

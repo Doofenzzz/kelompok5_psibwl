@@ -33,7 +33,7 @@ class User extends Authenticatable
 
     public function nasabah()
     {
-        return $this->hasOne(Nasabah::class, 'user_id');
+        return $this->hasOne(\App\Models\Nasabah::class, 'user_id');
     }
 
     public function isAdmin()

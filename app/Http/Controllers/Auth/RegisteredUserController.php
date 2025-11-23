@@ -110,7 +110,7 @@ class RegisteredUserController extends Controller
         // Clear session
         $request->session()->forget('registration_data');
 
-        return redirect()->route('welcome')->with('success', 'Akun berhasil dibuat!');
+        return redirect()->route('dashboard')->with('success', 'Akun berhasil dibuat!');
     }
 
     /**
