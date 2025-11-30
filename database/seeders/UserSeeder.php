@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
     {
         $recap = [];
 
-        $admin = User::create([
+c        $admin = User::create([
             'name' => 'Admin BPR',
             'email' => 'admin@bpr.com',
             'password' => Hash::make('password'),

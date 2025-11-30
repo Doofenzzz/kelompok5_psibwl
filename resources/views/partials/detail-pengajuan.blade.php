@@ -1,5 +1,3 @@
-{{-- resources/views/partials/detail-pengajuan.blade.php --}}
-
 <style>
   .detail-section {
     background: #f8f9fa;
@@ -402,7 +400,7 @@
   <div class="detail-section">
     <div class="d-flex gap-2 justify-content-end">
       @if($item->status === 'diterima')
-        <a href="{{ route('pengajuan.cetak', [$type, $item->id]) }}" target="_blank" class="btn btn-bank">
+        <a href="{{ route('pengajuan.cetak', [$type, $item->id]) }}" target="_blank" class="btn btn-primary fw-bold">
           <i class="bi bi-printer"></i> Cetak Bukti
         </a>
       @endif
